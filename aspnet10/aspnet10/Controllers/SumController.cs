@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using aspnet10.Utils;
 using aspnet10.Model;
+using aspnet10.Services;
 
 namespace aspnet10.Controllers
 {
@@ -14,7 +15,7 @@ namespace aspnet10.Controllers
         {
             if (Metods.IsNumeric(numbers.firstNumber) && Metods.IsNumeric(numbers.secondNumber))
             {
-                var result = Metods.ConvertToDecimal(numbers.firstNumber) + Metods.ConvertToDecimal(numbers.secondNumber);
+                var result = MathService.Sum(Metods.ConvertToDecimal(numbers.firstNumber), Metods.ConvertToDecimal(numbers.secondNumber));
                 return Ok(result.ToString());
             }
             return BadRequest("Invalid Input");
