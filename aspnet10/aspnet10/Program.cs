@@ -1,4 +1,5 @@
 using aspnet10.Services;
+using aspnet10.Services.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<MathService>();
+builder.Services.AddScoped<IPersonService, PersonServicesImpl>();
 
 var app = builder.Build();
 
