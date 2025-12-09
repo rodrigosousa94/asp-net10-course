@@ -1,58 +1,56 @@
 ﻿using aspnet10.Model;
+using aspnet10.Model.Context;
+using System;
 
 namespace aspnet10.Services.Impl
 {
     public class PersonServicesImpl : IPersonService
     {
 
+        private MSSQLContext _context;
+        public PersonServicesImpl(MSSQLContext context)
+        {
+            _context = context;
+        }
+
         public List<Person> FindAll()
         {
-            List<Person> persons = new List<Person>();
-            for(int i = 0; i < 8; i++)
-            {
-                persons.Add(MockPerson(i));
-            }
-
-            return persons;
+            return _context.Persons.ToList();
         }
 
         public Person FindById(long id)
         {   
-            var person = MockPerson((int)id);
-
-            return person;
+            return _context.Persons.Find(id);
 
         }
 
-
         public Person Create(Person person)
         {
-            person.Id = new Random().Next(1, 1000);
+            _context.Persons.Add(person);
+            _context.SaveChanges();
             return person;
         }
 
         public Person Update(Person person)
         {
-            return person;
+
+            var personToUpdated = _context.Persons.Find(person.Id);
+
+            if(personToUpdated == null) return null;
+
+            _context.Entry(personToUpdated).CurrentValues.SetValues(person);
+            _context.SaveChanges();
+            return personToUpdated;
         }
 
         public void Delete(long id)
         {
-            // retornara vazio
-        }
-        private Person MockPerson(int i)
-        {
-            var person = new Person
-            {
-                Id = new Random().Next(1, 1000),
-                FirstName = "Leandro" + i,
-                LastName = "Costa",
-                Address = "Uberlândia - MG - Brasil",
-                Gender = "Male"
-            };
+            var personToUpdated = _context.Persons.Find(id);
 
-            return person;
-        }
+            if (personToUpdated == null) return;
 
+            _context.Persons.Remove(personToUpdated);
+            _context.SaveChanges();
+        }
     }
 }
