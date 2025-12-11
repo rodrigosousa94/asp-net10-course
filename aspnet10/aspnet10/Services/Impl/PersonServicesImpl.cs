@@ -1,5 +1,6 @@
 ﻿using aspnet10.Model;
 using aspnet10.Model.Context;
+using aspnet10.Repositories;
 using System;
 
 namespace aspnet10.Services.Impl
@@ -7,50 +8,35 @@ namespace aspnet10.Services.Impl
     public class PersonServicesImpl : IPersonService
     {
 
-        private MSSQLContext _context;
-        public PersonServicesImpl(MSSQLContext context)
+        private IPersonRepository _repository;
+        public PersonServicesImpl(IPersonRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public List<Person> FindAll()
         {
-            return _context.Persons.ToList();
+            return _repository.FindAll();
         }
 
         public Person FindById(long id)
         {   
-            return _context.Persons.Find(id);
-
+            return _repository.FindById(id);
         }
 
         public Person Create(Person person)
         {
-            _context.Persons.Add(person);
-            _context.SaveChanges();
-            return person;
+            return _repository.Create(person);
         }
 
         public Person Update(Person person)
         {
-
-            var personToUpdated = _context.Persons.Find(person.Id);
-
-            if(personToUpdated == null) return null;
-
-            _context.Entry(personToUpdated).CurrentValues.SetValues(person);
-            _context.SaveChanges();
-            return personToUpdated;
+            return _repository.Update(person);
         }
 
         public void Delete(long id)
         {
-            var personToUpdated = _context.Persons.Find(id);
-
-            if (personToUpdated == null) return;
-
-            _context.Persons.Remove(personToUpdated);
-            _context.SaveChanges();
+            _repository.Delete(id);
         }
     }
 }

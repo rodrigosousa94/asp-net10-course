@@ -1,4 +1,6 @@
 using aspnet10.Configurations;
+using aspnet10.Repositories;
+using aspnet10.Repositories.Impl;
 using aspnet10.Services;
 using aspnet10.Services.Impl;
 
@@ -11,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 
 builder.Services.AddScoped<IPersonService, PersonServicesImpl>();
+
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
 var app = builder.Build();
 
