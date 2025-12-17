@@ -19,7 +19,6 @@ namespace aspnet10.Repositories.Impl
         public Person FindById(long id)
         {
             return _context.Persons.Find(id);
-
         }
 
         public Person Create(Person person)

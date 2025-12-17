@@ -14,7 +14,11 @@ builder.Services.AddDatabaseConfiguration(builder.Configuration);
 
 builder.Services.AddScoped<IPersonService, PersonServicesImpl>();
 
+builder.Services.AddScoped<IBookService, BookServiceImpl>();
+
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 var app = builder.Build();
 
