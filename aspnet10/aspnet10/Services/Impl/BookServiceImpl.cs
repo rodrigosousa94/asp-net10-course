@@ -5,8 +5,8 @@ namespace aspnet10.Services.Impl
 {
     public class BookServiceImpl : IBookService
     {
-        private IBookRepository _repository;
-        public BookServiceImpl(IBookRepository repository)
+        private IRepository<Book> _repository;
+        public BookServiceImpl(IRepository<Book> repository)
         {
             _repository = repository;
         }

@@ -1,15 +1,13 @@
 ﻿using aspnet10.Model;
-using aspnet10.Model.Context;
 using aspnet10.Repositories;
-using System;
 
 namespace aspnet10.Services.Impl
 {
     public class PersonServicesImpl : IPersonService
     {
 
-        private IPersonRepository _repository;
-        public PersonServicesImpl(IPersonRepository repository)
+        private IRepository<Person> _repository;
+        public PersonServicesImpl(IRepository<Person> repository)
         {
             _repository = repository;
         }

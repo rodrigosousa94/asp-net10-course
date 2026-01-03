@@ -31,6 +31,7 @@ namespace aspnet10.Controllers
         public IActionResult GetById([FromRoute] long id)
         {
             _logger.LogInformation("Getting book ID: {id}", id);
+
             var book = _bookService.FindById(id);
             if (book != null)
             {
